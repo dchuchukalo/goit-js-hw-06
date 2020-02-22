@@ -109,9 +109,17 @@ console.log(calculateTotalBalance(users)); // 20916
 //   );
 // };
 
+// const getUsersWithFriend = (users, friendName) => {
+//   const trueFriend = friend => friend === friendName;
+//   return users
+//     .filter(user => user.friends.some(trueFriend))
+//     .map(user => user.name);
+// };
+
 const getUsersWithFriend = (users, friendName) => {
-  const trueFriend = friend => friend === friendName;
-  return users.filter(user => user.friends.some(trueFriend));
+  return users
+    .filter(user => user.friends.includes(friendName))
+    .map(user => user.name);
 };
 
 console.log(getUsersWithFriend(users, 'Briana Decker')); // [ 'Sharlene Bush', 'Sheree Anthony' ]
@@ -133,22 +141,38 @@ console.log(getNamesSortedByFriendsCount(users));
 // До этого думал сделать либо через фильтр(но не знал какое условие сделать),
 // либо через some(если такой элемет был то пропускать, а если нет, то записывать).
 // Возможно подскажите, какое решение здесь ожидалось?
+// const getSortedUniqueSkills = users => {
+//   const getTags = users =>
+//     users.reduce((allTags, user) => {
+//       allTags.push(...user.skills);
+//       return allTags;
+//     }, []);
+//   const allTags = getTags(users);
+//   const uniqueTags = allTags.filter((tag, index) => {
+//     return index === allTags.indexOf(tag);
+//   });
+//   return uniqueTags.sort();
+// };
+
 const getSortedUniqueSkills = users => {
-  const getTags = users =>
+  const getSkills = users =>
     users.reduce((allTags, user) => {
       allTags.push(...user.skills);
       return allTags;
     }, []);
-  const allTags = getTags(users);
-  const uniqueTags = allTags.filter((tag, index) => {
-    return index === allTags.indexOf(tag);
-  });
-  return uniqueTags.sort();
+  const skills = getSkills(users);
+  const uniqueSkills = skills =>
+    skills.reduce((acc, skill) => {
+      if (acc.includes(skill)) {
+        return acc;
+      }
+      acc.push(skill);
+      return acc;
+    }, []);
+  return uniqueSkills(skills).sort();
 };
-
 console.log(getSortedUniqueSkills(users));
 // [ 'adipisicing', 'amet', 'anim', 'commodo', 'culpa', 'elit', 'ex', 'ipsum', 'irure', 'laborum', 'lorem', 'mollit', 'non', 'nostrud', 'nulla', 'proident', 'tempor', 'velit', 'veniam' ]
-
 
 // Я прописывал решения через обычные функции, по тому что со стрелочными путался.
 // Вроде бы написал через стрелочные и всё работает, но не понимаю что и куда идет.
