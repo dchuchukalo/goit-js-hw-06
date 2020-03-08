@@ -2,7 +2,7 @@ import users from './users.js';
 
 // Task 01
 const getUserNames = users => {
-  return users.map(user => user.name);
+  return users.map(({name}) => name);
 };
 
 // const getUserNames = users => {
@@ -16,7 +16,7 @@ console.log(getUserNames(users));
 
 // Task 02
 const getUsersWithEyeColor = (users, color) => {
-  return users.filter(user => user.eyeColor === color);
+  return users.filter(({eyeColor}) => eyeColor === color);
 };
 
 // const getUsersWithEyeColor = (users, color) => {
@@ -28,8 +28,8 @@ const getUsersWithEyeColor = (users, color) => {
 console.log(getUsersWithEyeColor(users, 'blue')); // [объект Moore Hensley, объект Sharlene Bush, объект Carey Barr]
 
 // Task 03
-const getUsersWithGender = function(users, gender) {
-  return users.filter(user => user.gender === gender).map(user => user.name);
+const getUsersWithGender = function(users, personGender) {
+  return users.filter(({gender}) => gender === personGender).map(({name}) => name);
 };
 
 // const getUsersWithGender = function(users, gender) {
@@ -45,7 +45,7 @@ console.log(getUsersWithGender(users, 'male')); // [ 'Moore Hensley', 'Ross Vazq
 
 // Task 04
 const getInactiveUsers = users => {
-  return users.filter(user => !user.isActive);
+  return users.filter(({isActive}) => !isActive);
 };
 
 // const getInactiveUsers = users => {
@@ -57,8 +57,8 @@ const getInactiveUsers = users => {
 console.log(getInactiveUsers(users)); // [объект Moore Hensley, объект Ross Vazquez, объект Blackburn Dotson]
 
 // Task 05
-const getUserWithEmail = (users, email) => {
-  return users.find(user => user.email === email);
+const getUserWithEmail = (users, personEmail) => {
+  return users.find(({email}) => email === personEmail);
 };
 
 // const getUserWithEmail = (users, email) => {
@@ -72,7 +72,7 @@ console.log(getUserWithEmail(users, 'elmahead@omatom.com')); // {объект п
 
 // Task 06
 const getUsersWithAge = (users, min, max) => {
-  return users.filter(user => user.age > min && user.age < max);
+  return users.filter(({age}) => age > min && age < max);
 };
 
 // const getUsersWithAge = (users, min, max) => {
@@ -87,7 +87,7 @@ console.log(getUsersWithAge(users, 30, 40));
 
 // Task 07
 const calculateTotalBalance = users => {
-  return users.reduce((total, user) => total + user.balance, 0);
+  return users.reduce((total, {balance}) => total + balance, 0);
 };
 
 // const calculateTotalBalance = users => {
@@ -118,8 +118,8 @@ console.log(calculateTotalBalance(users)); // 20916
 
 const getUsersWithFriend = (users, friendName) => {
   return users
-    .filter(user => user.friends.includes(friendName))
-    .map(user => user.name);
+    .filter(({friends}) => friends.includes(friendName))
+    .map(({name}) => name);
 };
 
 console.log(getUsersWithFriend(users, 'Briana Decker')); // [ 'Sharlene Bush', 'Sheree Anthony' ]
@@ -128,7 +128,8 @@ console.log(getUsersWithFriend(users, 'Goldie Gentry')); // [ 'Elma Head', 'Sher
 // Task 09
 const getNamesSortedByFriendsCount = users => {
   const sortByQuantityOfFriends = (a, b) => a.friends.length - b.friends.length;
-  return users.sort(sortByQuantityOfFriends).map(user => user.name);
+  return users.sort(sortByQuantityOfFriends).map(({name}) => name);
+  
 };
 
 console.log(getNamesSortedByFriendsCount(users));
